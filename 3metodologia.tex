@@ -1,0 +1,159 @@
+%==============================================================================
+\section{The UBench Framework and Protocol} \label{sec:metodologia}
+%==============================================================================
+
+%------------------------------------------------------------------------------
+\subsection{Framework overview} \label{sec:visao_geral_ubench}
+
+UBench is a modular Python/PyTorch framework executed end-to-end by a single command (Fig.~\ref{fig:pipeline_ubench}).
+An orchestration module probes the GPU, runs preprocessing when its versioned output is missing or outdated, builds subject-partitioned data loaders, trains all architectures within \textbf{one shared training loop}, and runs a common benchmark module.
+Since no architecture has its own training, metric, or timing path, the resulting numbers are comparable by design.
+Each run receives an identifier that isolates its artifacts and a metadata file recording the Git commit hash and a dirty-tree flag, library and CUDA versions, GPU, seed and determinism flag, effective configuration, partitions, and the hash of the dependency lock file.
+Interrupted runs resume from the most recent checkpoint, and a run is marked successful only if no training failure is recorded.
+
+\begin{figure}[tbp]
+\centering
+\begin{tikzpicture}[
+  >=latex, thick,
+  every node/.style={font=\scriptsize},
+  proc/.style={rectangle, rounded corners=2pt, draw, fill=black!12, align=center, text width=2.45cm, minimum height=0.95cm, inner sep=2pt},
+  art/.style={rectangle, draw, fill=black!3, align=center, text width=2.45cm, minimum height=0.95cm, inner sep=2pt},
+  node distance=0.35cm and 0.32cm]
+ \node[art]  (raw)  {Raw 16-bit TIFFs\\+ landmarks + boxes};
+ \node[proc, right=of raw] (pre) {Preprocessing: \textdegree{}C, crop, mask rasterization, $256^2$};
+ \node[art, right=of pre] (proc) {Frozen corpus\\+ versioned manifest};
+ \node[proc, below=of proc] (cv) {\texttt{GroupKFold} by subject ($K{=}5$)};
+ \node[proc, left=of cv] (train) {Shared training loop\\(recipe per family)};
+ \node[art, left=of train] (models) {U-Net\\TransUNet\\\swinp};
+ \node[proc, below=of models] (bench) {Benchmark: accuracy, latency, memory};
+ \node[proc, right=of bench] (stats) {Paired statistics by subject};
+ \node[art, right=of stats] (out) {Run artifacts\\+ provenance metadata};
+ \draw[->] (raw) -- (pre); \draw[->] (pre) -- (proc); \draw[->] (proc) -- (cv);
+ \draw[->] (cv) -- (train); \draw[<->] (train) -- (models);
+ \draw[->] (models) -- (bench); \draw[->] (bench) -- (stats); \draw[->] (stats) -- (out);
+\end{tikzpicture}
+\caption{UBench pipeline. Rectangles: persisted artifacts; rounded boxes: processing stages.}
+\label{fig:pipeline_ubench}
+\end{figure}
+
+%------------------------------------------------------------------------------
+\subsection{Dataset and reference masks} \label{subsec:charlotte_thermalface}
+
+Charlotte-ThermalFace \cite{Ashrafi2022} contains about 10{,}000 thermal face images of 10 subjects, acquired at ambient temperatures from $20.5$ to $26.5$\,\degC{} with varying humidity, air velocity, and capture distance, and stored as 16-bit raw radiometric frames.
+After discarding unreadable frames, missing landmarks, and degenerate crops, the corpus has \textbf{8{,}074 images}.
+The dataset provides anatomical \textbf{landmarks}, not segmentation masks; reference masks are therefore \textbf{derived}: each image is cropped around the face bounding box with a fixed margin, landmarks are shifted to the (border-clamped) crop origin, and the landmarks of each region are grouped into a closed polygon and rasterized, following the precedent of Joshi et al.~\cite{Joshi2022}.
+The 10 classes are background, lower face contour, left and right eyebrows, nose, left and right eyes, mouth, lips, and forehead; left/right follow the observer's viewpoint.
+The derivation code is deterministic and version-controlled, and the generated masks are frozen and verified by checksum.
+Derived masks impose an architecture-independent \textbf{performance ceiling}: small regions bounded by few landmarks (eyebrows, lips) suffer proportionally larger polygonal approximation error, and no manual masks exist to quantify this noise.
+
+%------------------------------------------------------------------------------
+\subsection{Radiometric preprocessing and augmentation} \label{sec:preprocessamento_radiometrico}
+
+Raw values (centikelvin) are converted to degrees Celsius and normalized using a \textbf{fixed} range, $[20, 40]$\,\degC{}$\,\mapsto[0,1]$, identical for all images.
+The usual per-image min--max normalization would eliminate absolute temperature information, which is exactly what distinguishes thermography from a grayscale image; the fixed range preserves comparability across images and subjects, as advocated by \cite{Joshi2022}.
+Images are resized to $256\times256$ with bilinear interpolation and masks with nearest neighbor.
+A manifest records the schema version, unit, resolution, and normalization; the loader raises an explicit error if it is missing or incompatible, so data produced under an older convention cannot be silently reinterpreted.
+Because pixel values are temperatures, photometric augmentations (brightness, contrast) are excluded.
+Augmentation combines geometric transforms (horizontal flip and affine), applied jointly to image and mask, with physically plausible radiometric perturbations applied in \degC{}: an additive sensor offset of up to $\pm0.5$\,\degC{} and Gaussian noise.
+
+%------------------------------------------------------------------------------
+\subsection{Evaluated architectures} \label{sec:arquiteturas_avaliadas}
+
+All architectures are trained from scratch on the thermal data only (Table~\ref{tab:arquiteturas}).
+\textbf{U-Net} \cite{Ronneberger2015} follows the canonical topology (widths $64\!\rightarrow\!512$, 1024-channel bottleneck).
+\textbf{TransUNet} \cite{Chen2021} uses a convolutional encoder, a ViT-B/16-style bottleneck (768-d embeddings, 12 blocks, 12 heads) with a learned absolute positional embedding, and a convolutional decoder from $H/16$ to full resolution.
+
+\textbf{\swinp{}} retains a hierarchical encoder consistent with the Swin-T scale \cite{Liu2021Swin} ($d{=}96$, depths $[2,2,6,2]$, heads $[3,6,12,24]$, $8\times8$ windows, $4\times4$ patches with patch merging) but \textbf{does not reproduce} Swin-UNet++ \cite{Liu2021Materials}, hence its name (abbreviated \swint{} in tables).
+Four simplifications were necessitated by the 6~GB GPU memory constraint: a Swin decoder with patch expanding, a full nested skip grid, and deep supervision would exceed the available memory budget at $256\times256$ without mixed precision, so the decoder is convolutional with collapsed nested skips and a $4\times$ interpolation from $H/4$.
+Three additional omissions affect the attention mechanism itself: the shifted-window mask, the relative position bias, and any positional encoding.
+Without them, window attention is permutation-invariant within each window.
+Its results are therefore reported as a \textbf{simplified baseline}, not as evidence about Swin-style window attention.
+Pre-trained variants (SwinV2-T and R50+ViT-B/16 from \texttt{timm}) exist in the pipeline but are excluded by design: mixing ImageNet-pretrained and from-scratch models would primarily reflect the effect of pre-training.
+
+\begin{table}[tbp]
+\centering
+\caption{Evaluated architectures (none pre-trained)}
+\label{tab:arquiteturas}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{1.55cm}>{\raggedright\arraybackslash}p{2.75cm}>{\raggedright\arraybackslash}p{2.35cm}r@{}}
+\toprule
+\textbf{Architecture} & \textbf{Encoder} & \textbf{Attention} & \textbf{Par.\,(M)} \\
+\midrule
+U-Net & Convolutional & None & 31.0 \\
+TransUNet & Conv.\ + ViT-B/16 bottleneck & Global, at bottleneck & 105.7 \\
+\swint{} & Hierarchical, Swin-T scale & Windowed, simplified & 40.9 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%------------------------------------------------------------------------------
+\subsection{Training protocol} \label{subsec:recipes_otimizacao}
+
+\textbf{Subject-disjoint cross-validation.}
+We use $K=5$ folds with \texttt{GroupKFold} grouped by subject identity; an automated test asserts that no subject appears in both training and validation of any fold.
+Each subject is validated exactly once.
+\texttt{GroupKFold} balances sample counts and is deterministic, yielding the validation pairs \{S2,S5\}, \{S8,S9\}, \{S6,S10\}, \{S3,S7\}, and \{S1,S4\} for folds 1--5.
+
+\textbf{Family-specific recipes and budget.}
+Imposing one optimizer and schedule on all families is not neutral; it is the poorly tuned baseline that \cite{Isensee2024} identify as a source of spurious conclusions.
+Each family therefore uses its canonical recipe, without any hyperparameter search (Table~\ref{tab:hiperparametros}): the transformer family uses AdamW with decoupled weight decay \cite{Loshchilov2019}, linear warm-up, and cosine decay, as in \cite{Liu2021Swin}; U-Net uses Adam with \texttt{ReduceLROnPlateau}, the conventional setting for medical U-Nets \cite{Siddique2021}.
+The budget is \textbf{100 epochs} for every architecture.
+Batch sizes are selected by the hardware probe as the largest that fits in memory (8 for U-Net, 6 for the transformers), so the transformers perform about $33\%$ more weight updates per epoch (1{,}077 vs.\ 807); this asymmetry, like gradient clipping, favors the transformer family and is declared rather than hidden.
+All models minimize $\mathcal{L}=0.5\,\mathcal{L}_{CE}+0.5\,\mathcal{L}_{Dice}$ \cite{Milletari2016,Sudre2017,Jadon2020} with uniform class weights.
+
+\begin{table}[tbp]
+\centering
+\caption{Training hyperparameters by family}
+\label{tab:hiperparametros}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lll@{}}
+\toprule
+ & \textbf{U-Net (CNN)} & \textbf{TransUNet, \swint{}} \\
+\midrule
+Optimizer & Adam & AdamW \\
+Learning rate & $1{\times}10^{-4}$ & $1{\times}10^{-4}$ \\
+Weight decay & $0$ & $0.05$ \\
+Scheduler & Plateau (pat.\ 5, $\times0.5$) & 5\% warm-up $\rightarrow$ cosine \\
+Grad.\ clipping & none & $1.0$ \\
+Batch / epochs & 8 / 100 & 6 / 100 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Epoch selection.}
+The \textbf{primary} result uses the model at the \textbf{final epoch} of the budget, fixed \textit{a priori} and independent of validation performance.
+The \textbf{secondary} result uses the epoch with the best validation mIoU, which is optimistic by construction because the same partition selects and reports.
+The plateau scheduler of U-Net is itself conditioned on validation mIoU, a mild adaptation that favors U-Net, i.e., acts against the main result.
+
+%------------------------------------------------------------------------------
+\subsection{Metrics and cost instrumentation} \label{subsec:metricas_acuracia}
+
+\textbf{Accuracy.} mIoU and Dice are computed on argmax predictions from a single confusion-matrix implementation (\texttt{torchmetrics}) shared by the training loop and the benchmark module, which rules out silent discrepancies between two implementations of the same metric.
+The per-image macro average excludes classes absent from the reference, and the background is reported separately.
+Boundary metrics (HD95, NSD) are out of scope.
+
+\textbf{Cost.} Latency discards 20 warm-up iterations, times 200, and explicitly synchronizes the GPU before reading the clock; otherwise one measures the asynchronous kernel queue rather than the computation.
+Latency and peak memory use a \textbf{fixed batch of 4} for all architectures, since peak memory scales with batch size.
+Only one model resides on the GPU, and \texttt{reset\_peak\_memory\_stats} and \texttt{max\_memory\_allocated} bracket the forward pass.
+Three repetitions give identical values, and a fourth with 300~MB of unrelated tensors resident differs by less than 1~MB, so the measurement is independent of evaluation order.
+We also report parameters, checkpoint size, and wall-clock training time per fold.
+
+%------------------------------------------------------------------------------
+\subsection{Statistical analysis} \label{sec:analise_estatistica}
+
+Comparisons are \textbf{paired by subject}: each subject is evaluated once by a model that never saw it, giving $n=10$ paired observations per comparison.
+We report mean differences, wins, the exact two-sided Wilcoxon signed-rank test, 95\% bootstrap confidence intervals of the paired differences (20{,}000 resamples), and Holm correction \cite{Holm1979}.
+The pairing unit matters: the smallest attainable exact $p$-value is $2/2^{n}$, i.e., $0.0625$ when pairing by fold ($n=5$), above the 5\% threshold however consistent the folds are, but $\approx0.0020$ for $n=10$.
+Because the two subjects of a fold share one trained model, subject-level $p$-values are slightly optimistic, so fold-level pairing ($n=5$ independent models) is reported as a secondary analysis.
+
+%------------------------------------------------------------------------------
+\subsection{Execution environment and pipeline audit} \label{subsec:auditoria_defeitos}
+
+The reported run used one NVIDIA GTX~1660~Ti (6~GB), PyTorch~2.5.1 with CUDA~12.1, seed~42 with deterministic mode, and no mixed precision (unsupported on this GPU class), totaling \textbf{186.9 GPU-hours} for the 15 architecture--fold combinations.
+The run was launched from a working tree with uncommitted changes outside the pipeline code; the source tree is byte-identical to the tagged commit, and the difference is versioned as a patch, so the run is reproducible from a commit plus an inspectable patch.
+Before the run, the pipeline underwent a systematic audit.
+Overall, \textbf{32 issues} were cataloged: 26 found by the pre-run audit, four revealed by the pattern of the results (UB-27 to UB-30), and two by verifying the corrections; 28 are corrected and verified, mostly by automated regression tests, and four are disclosed exceptions (e.g., UB-17, the attention omissions of \swinp{}).
+The pre-run classes covered divergent metric definitions, partition integrity, preprocessing and architectural fidelity, efficiency measured under unequal conditions, and environment drift.
+Issues relevant to interpreting the results are discussed where they arise.

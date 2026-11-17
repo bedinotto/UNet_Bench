@@ -1,0 +1,14 @@
+%==============================================================================
+\section{Conclusion} \label{sec:conclusao}
+%==============================================================================
+
+We presented UBench, an open benchmarking framework for multi-region semantic segmentation of thermal faces in which all architectures share the training loop, metric implementation, and cost instrumentation, and we used it to compare U-Net, TransUNet, and \swinp{} on Charlotte-ThermalFace under subject-disjoint cross-validation, family-specific recipes, an identical budget, and subject-paired tests.
+TransUNet is the most accurate architecture (RQ1), but the robust claim is the partial ordering TransUNet $>$ \{U-Net, \swinp{}\}, because the U-Net advantage over \swinp{} is confined to classes corrupted by mask-derivation and augmentation defects.
+Per-class IoU grows with region area, an association that weakens where masks are correctly derived (RQ2).
+Under equalized measurement, efficiency reverses accuracy (RQ3): \swinp{} delivers $89.7$ images/s with $300.6$~MB, against $39.2$ images/s and $591.7$~MB for TransUNet.
+Above all, the spread across validation partitions exceeds the largest architectural difference, independent evidence in this domain for the critique of loosely controlled architecture comparisons \cite{Isensee2024}.
+
+Future work includes retraining with both corrections applied together, adding nnU-Net and pre-trained encoders as external anchors, computing boundary metrics, holding out test subjects, and validating the framework on a second thermal dataset.
+Code, configuration, trained weights, and per-fold and per-subject metrics are available in an anonymized repository for review.
+% TODO before submission: add the Anonymous GitHub link here (e.g., \url{https://anonymous.4open.science/r/...}).
+% Camera-ready: replace with the public repository and the Zenodo DOI.

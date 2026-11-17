@@ -1,0 +1,34 @@
+%==============================================================================
+\section{Discussion} \label{sec:discussao}
+%==============================================================================
+
+\textbf{What the ordering does and does not say.}
+Following \cite{Isensee2024}, we only grant a mechanistic explanation to differences that are significant under subject pairing and whose bootstrap interval excludes zero, and every explanation must still face two confounders declared before the analysis.
+\textbf{Capacity}: TransUNet has $3.4\times$ the parameters of U-Net and also performs about $33\%$ more updates per epoch, which suffices to explain its lead without invoking any property of self-attention.
+The result does say something narrower: training a ViT bottleneck from scratch on a few thousand images, often considered unfavorable, did not prevent it from converting extra capacity into accuracy.
+\textbf{Fidelity}: \swinp{} informs about this baseline, not about Swin.
+Between U-Net and \swinp{}, the difference dissolves once the lateralized classes are excluded, and the UB-30 ablation reverses its sign, so no architectural explanation is warranted.
+As a hypothesis only, \swinp{} is the only model that discards positional information without restoring it (U-Net preserves it through translation-equivariant convolutions and skips; TransUNet has a learned positional embedding), and it degrades most where the discriminative cue is positional: telling left from right between near-identical structures.
+The competing reading, that a weaker baseline degrades more where the task is harder, fits the data equally well.
+
+\textbf{Comparison with the literature.}
+Our best final-epoch mIoU ($43.3\%$) is about 24 points below the lowest value reported by Joshi et al.~\cite{Joshi2022} ($67.6$--$82.9\%$).
+Six protocol differences separate the numbers, and five of them work against this study: nine times fewer subjects (10 vs.\ 90) with variable distance; five subject-disjoint folds instead of one 85/15 split; no pre-training; a fixed CE+Dice loss, whereas the loss alone moved their U-Net by $13.8$ points; and defective masks on half of the corpus.
+The sixth, a different class scheme, has an undetermined direction.
+No single difference explains the gap, and we do not isolate their contributions; absolute values should not be compared across these protocols.
+
+\textbf{Lessons for benchmarking.}
+Most of the 32 audited issues raised no error at all; they silently degraded results, several producing numbers plausible enough to publish.
+Three lessons generalize beyond this domain.
+\emph{(1) Agreement with theory is not validation.} The second, non-isolated memory probe agreed with the intuition that more parameters means more memory, and that agreement was taken as evidence that the instrument was correct; a partial fix (equal batches) also closed the investigation prematurely.
+Cost measurements need their own controls: fixed batch, explicit synchronization, warm-up exclusion, probe isolation, and a perturbation test.
+\emph{(2) Code reading has two blind spots.} UB-27 lived in the relation between code and data format, not in any single file, while UB-30 was visible in a single file but required the reviewer to hold the right semantic premise in mind.
+Measurement on artifacts catches the first kind of issue; metamorphic tests that encode domain invariants, such as ``flipping must swap lateral labels'', catch the second without prior suspicion of a defect, and validating each implementation against its published result would have exposed the omissions in \swinp{} before any run.
+\emph{(3) Fixing code does not fix artifacts.} A later run that already contained the mask fix produced byte-identical defective masks, because two serial caches (UB-31) skipped regeneration; tests passed legitimately.
+Only measuring the quantity that the defect distorted, here the lateral asymmetry, revealed that the fix had not been materialized.
+
+\textbf{Threats to validity.}
+\emph{Construct}: masks are derived from landmarks, with no inter-annotator reference; boundary metrics are not computed; and UB-27/UB-30 bias the lateralized classes, which is why we report the partial ordering.
+\emph{Internal}: capacity is not matched, the budget is equalized in epochs rather than steps or time, and the U-Net scheduler is conditioned on validation mIoU.
+\emph{External}: one dataset with 10 subjects, one sensor and acquisition protocol, one GPU, and no external baseline such as nnU-Net \cite{Isensee2021}; the ranking concerns these implementations only.
+\emph{Conclusion}: a single seed, so variance is across partitions rather than seeds; two subjects share each trained model; two comparisons sit at the test floor; and there is no held-out test set.

@@ -1,0 +1,32 @@
+%==============================================================================
+\section{Introduction} \label{sec:introducao}
+%==============================================================================
+
+Infrared thermography captures radiation emitted by a surface, which depends on its temperature, and therefore measures skin temperature without contact or external illumination \cite{Nowakowski2025}.
+A temperature measurement, however, is only as valid as the region it is averaged over.
+Facial temperature is not uniformly distributed across regions that differ in vascular supply, tissue thickness, and sensitivity to ambient conditions: the inner corner of the eye correlates strongly with core temperature, whereas the forehead and cheeks are more susceptible to environmental artifacts \cite{Ioannou2014,Gioia2024}.
+Isolating each anatomical region is thus a methodological prerequisite for downstream measurement, and because manual delineation is impracticable frame by frame, it must be automated by semantic segmentation.
+
+Multi-region segmentation of thermal faces remains underexplored: most work targets face detection, landmark localization, or a single region of interest \cite{Vega2025,Chu2019,Jerbi2024}, and thermal segmentation as a whole is a fragmented subfield with heterogeneous evaluation protocols \cite{Kutuk2022}.
+More importantly, architecture comparisons in this setting are fragile because of four recurring practices.
+(i)~\textbf{Identity leakage}: when frames of the same subject appear in training and evaluation, metrics reward memorization of faces rather than generalization.
+(ii)~\textbf{Identical hyperparameters} across convolutional and attention-based families implicitly adopt one family's recipe as the standard and handicap the other.
+(iii)~\textbf{Undeclared training budgets} let an architecture look superior merely because it was trained longer.
+(iv)~\textbf{Cost measured under unequal conditions}, such as different batch sizes or unsynchronized GPU timers, makes efficiency rankings incomparable.
+Isensee et al.~\cite{Isensee2024} argue that much of the progress reported in medical segmentation stems from such validation practices rather than from architectural innovation.
+
+This paper presents \textbf{UBench}, a reproducible benchmarking framework that addresses these four methodological issues by design and uses it to compare U-Net \cite{Ronneberger2015}, TransUNet \cite{Chen2021}, and \swinp{}, a simplified Swin-based baseline, on 10 facial classes of the Charlotte-ThermalFace dataset \cite{Ashrafi2022}.
+We answer three research questions:
+\textbf{RQ1}: Which architecture achieves the highest accuracy, and is the difference statistically distinguishable from experimental variability?
+\textbf{RQ2}: How does per-class performance relate to region size and to the fidelity of the derived reference masks?
+\textbf{RQ3}: What is the relationship between accuracy and computational cost under equalized conditions, when cost is measured?
+
+The contributions are:
+\begin{itemize}
+\item an open, end-to-end benchmarking framework, from radiometric preprocessing to paired statistical analysis, in which all architectures share one training loop, one metric implementation, and one cost-measurement procedure;
+\item a benchmark of three architectures under subject-disjoint cross-validation, family-specific recipes, an identical declared budget, and subject-paired significance tests;
+\item the empirical finding that, in this domain, the variability across validation partitions exceeds the difference between the best and worst architectures, together with a sensitivity analysis showing that only a \emph{partial} ordering survives the exclusion of classes affected by label defects;
+\item a measurement-methodology account, drawn from a 32-item audit of the pipeline, of how silent instrumentation defects reversed the memory ranking twice and corrupted labels without raising any errors.
+\end{itemize}
+
+Section~\ref{sec:trab_relac} reviews related work; Section~\ref{sec:metodologia} describes the framework and protocol; Section~\ref{sec:resultados} reports the results; Section~\ref{sec:discussao} discusses them; and Section~\ref{sec:conclusao} concludes. 

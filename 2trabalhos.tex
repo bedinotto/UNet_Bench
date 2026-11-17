@@ -1,0 +1,22 @@
+%==============================================================================
+\section{Related Work} \label{sec:trab_relac}
+%==============================================================================
+
+\textbf{Thermal face analysis.}
+Most machine-learning work on thermal faces addresses the steps that precede segmentation.
+Robledo-Vega et al.~\cite{Vega2025} detect thermal faces with YOLOv8/YOLO11 on embedded platforms, evaluating on Charlotte-ThermalFace; Chu and Liu~\cite{Chu2019} localize thermal facial landmarks with multi-task CNNs; and Kopaczka et al.~\cite{Kopaczka2018} provide the landmark-annotated \textit{Thermal Face Database}.
+Studies that estimate body temperature typically rely on a few hand-picked regions; Jerbi et al.~\cite{Jerbi2024}, for instance, use the eye, nose, and cheek, and confirm that the region from which temperature is extracted determines measurement quality.
+These works output boxes or coordinates, whereas segmentation assigns a label to every pixel and delimits the area over which temperature statistics are computed.
+
+\textbf{Thermal segmentation.}
+The closest work is that of Joshi et al.~\cite{Joshi2022}, who segment thermal faces into multiple regions with self-adversarial multi-scale contrastive learning.
+They share three methodological choices with this paper: reference masks derived from anatomical landmarks, a split by subject identity, and the use of absolute per-pixel temperatures instead of per-image normalization.
+On the \textit{Thermal Face Database}, they report mIoU of $67.6\%$ for a U-Net with binary cross-entropy, $75.0\%$ with Dice loss, $81.4\%$ with the Region Mutual Information loss \cite{Zhao2019}, and $82.9\%$ for an Attention U-Net, all evaluated on a single 85/15 train-test split.
+M\"uller et al.~\cite{Muller2021} apply CNNs to multi-class thermal face segmentation, FTNet \cite{Panetta2021} segments coarser thermal scenes for driving and surveillance, and the survey of K\"ut\"uk et al.~\cite{Kutuk2022} characterizes the subfield as fragmented by heterogeneous protocols.
+None of these works reports variance across partitions or runs, nor efficiency under standardized measurement conditions.
+
+\textbf{Architectures and rigorous validation.}
+U-Net \cite{Ronneberger2015} is the most extensively validated encoder-decoder in medical image segmentation \cite{Siddique2021}.
+TransUNet \cite{Chen2021} inserts a ViT bottleneck into a convolutional encoder-decoder, while the Swin Transformer \cite{Liu2021Swin} computes attention within shifted local windows and underlies Swin-Unet \cite{Cao2022} and Swin-UNet++ \cite{Liu2021Materials}.
+nnU-Net \cite{Isensee2021} showed that a properly configured convolutional baseline often outperforms newer designs, and its revisit \cite{Isensee2024} documents how poorly tuned baselines, insufficient statistical control, and unequal budgets produce convincing but spurious architectural explanations.
+UBench transfers that critique to thermal face segmentation, a 2D, small-dataset, multi-region setting where, to our knowledge, no comparison combines subject-disjoint cross-validation, reported inter-partition variance, paired significance testing, and standardized cost measurement. 

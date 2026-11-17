@@ -1,0 +1,861 @@
+@inproceedings{sbcas_estendido,
+ author = {Felipe Fava and Mariana Padilha and Claudio Schepke and Fabricio Ferreira},
+ title = { Avaliação do Desempenho entre U-Net, TransUNet e Swin-UNet++ com Dataset Térmico Charlotte-ThermalFace},
+ booktitle = {Anais Estendidos do XXVI Simpósio Brasileiro de Computação Aplicada à Saúde},
+ location = {Ouro Preto/MG},
+ year = {2026},
+ keywords = {},
+ issn = {2763-8987},
+ pages = {498--509},
+ publisher = {SBC},
+ address = {Porto Alegre, RS, Brasil},
+ doi = {10.5753/sbcas_estendido.2026.25396},
+ url = {https://sol.sbc.org.br/index.php/sbcas_estendido/article/view/43858},
+ note = {Trabalho apresentado no ThermoAI --- Workshop de Intelig\^encia Artificial
+          aplicada a dados t\'ermicos, do SBCAS 2026, onde recebeu men\c{c}\~ao honrosa.
+          Dispon\'ivel em: \url{https://gbdi.icmc.usp.br/thermoai/}}
+}
+
+
+% ------------- INTRODUCAO ---------------
+
+@Article{Vega2025,
+AUTHOR = {Robledo-Vega, Isidro and Osuna-Tostado, Scarllet and Rodríguez-Mata, Abraham Efraím and García-Mata, Carmen Leticia and Acosta-Cano, Pedro Rafael and Baray-Arana, Rogelio Enrique},
+TITLE = {Embedded Vision System for Thermal Face Detection Using Deep Learning},
+JOURNAL = {Sensors},
+VOLUME = {25},
+YEAR = {2025},
+NUMBER = {10},
+ARTICLE-NUMBER = {3126},
+URL = {https://www.mdpi.com/1424-8220/25/10/3126},
+ISSN = {1424-8220},
+ABSTRACT = {Face detection technology is essential for surveillance and security projects; however, algorithms designed to detect faces in color images often struggle in poor lighting conditions. In this paper, we describe the development of an embedded vision system designed to detect human faces by analyzing images captured with thermal infrared sensors, thereby overcoming the limitations imposed by varying illumination conditions. All variants of the Ultralytics YOLOv8 and YOLO11 models were trained on the Terravic Facial IR database and tested on the Charlotte-ThermalFace database; the YOLO11 model achieved slightly higher performance metrics. We compared the performance of two embedded system boards: the NVIDIA Jetson Orin Nano and the NVIDIA Jetson Xavier NX, while running the trained model in inference mode. The NVIDIA Jetson Orin Nano performed better in terms of inference time. The developed embedded vision system based on these platforms accurately detects faces in thermal images in real-time.},
+DOI = {10.3390/s25103126}
+}
+
+@misc{SepsisWeb,
+    author = {Franciscan Missionaries of Our Lady Health System},
+    title         = {Sepsis: Leading Cause of Death in Hospitals and How We Are Helping Stop It},
+    url           = {https://health.fmolhs.org/about-us/sepsis-leading-cause-of-death-in-hospitals-and-how-we-are-helping-stop-it/},
+    urlaccessdate = {25 fevereiro 2025},
+    year = {2023}
+}
+
+
+@misc{MDSaude2024,
+    author = {Pedro Pinheiro},
+    title = {Sepse: o que é, causas, sintomas e tratamento},
+    publisher = {MD.Saúde},
+    volume = {2024},
+    month = {2024/11},
+    url = {https://www.mdsaude.com/doencas-infecciosas/sepse/},
+    year = {2024},
+    type = {Web Page}
+}
+
+@misc{TempTraq2025,
+    author = {Blue Spark Technologies, Inc.},
+    organization  = {Blue Spark Technologies, Inc.},
+    title         = {TempTraq: Instructions},
+    year          = {2025},
+     url           = {https://temptraq.healthcare/instructions/},
+    urlaccessdate = {20 maio 2025}
+}
+
+
+% -------------------------------------------------------------------------
+% ------------- ASPECTOS CONCEITUAIS ---------------
+% -------------------------------------------------------------------------
+
+@manual{LeptonDatasheet,
+  organization  = {{FLIR Systems, Inc.}},
+  title         = {LWIR MICRO THERMAL CAMERA MODULE FLIR Lepton{\textregistered} 2.5},
+  year          = {2019},
+  month         = may,
+  url           = {https://media.digikey.com/pdf/Data%20Sheets/FLIR%20PDFs/Lepton%C2%AE%202.5_Family.pdf},
+  urlaccessdate = {15 mai. 2025},
+  note          = {Document revision: 19-0372-OEM-COR-Lepton 2.5 Datasheet.}
+}
+
+@manual{LeptonEngineerDatasheet,
+  organization  = {{FLIR Systems, Inc.}},
+  title         = {{FLIR LEPTON{\textregistered} Engineering Datasheet}},
+  year          = {2018},
+  month         = mar,
+  day           = {21},
+  version       = {200},
+  url           = {https://cdn.sparkfun.com/assets/f/6/3/4/c/Lepton_Engineering_Datasheet_Rev200.pdf},
+  urlaccessdate = {15 maio 2024},
+  note          = {Revision 200. Engineering Datasheet for FLIR LEPTON®.}
+}
+
+@misc{SBP2021,
+    author = {Tadeu Fernando Fernandes and Marco Aurélio P. {Sáfadi}},
+    title = {Manejo da Febre Aguda},
+    publisher = {Sociedade Brasileira de Pediatria},
+    volume = {2021},
+    month = {2021/10},
+    url = {https://www.sbp.com.br/fileadmin/user\_upload/23229c-DC\_Manejo\_da\_febre\_aguda.pdf},
+    year = {2021},
+    type = {Web Page}
+}
+
+@misc{MSD2024,
+    author = {Larry M. Bush},
+    title = {Febre},
+    publisher = {Manual MSD},
+    volume = {2024},
+    month = {2024/07},
+    keywords = {pirexia,pirógeno,febril,hiperpirexia,temperatura,calafrios,calafrios,antipirético,infecção},
+    url = {https://www.msdmanuals.com/pt/profissional/doencas-infecciosas/biologia-das-doencas-infecciosas/febre},
+    year = {2024},
+    type = {Web Page}
+}
+
+@Inbook{Grodzinsky2020,
+author="Ewa Grodzinsky and M{\"a}rta Sund Levander",
+editor="Ewa Grodzinsky and M{\"a}rta Sund Levander",
+title="History of the Thermometer",
+bookTitle="Understanding Fever and Body Temperature: A Cross-disciplinary Approach to Clinical Practice",
+year="2020",
+publisher="Springer International Publishing",
+address="Cham",
+pages="23--35",
+abstract="The temperature of the human body has been used as a diagnostic sign since the earliest days of clinical medicine. The earliest thermal instruments were developed during the sixteenth and seventeenth centuries. In 1665, it was suggested that the melting point of ice and the boiling point of water should be the standard. The most common scales today are the Fahrenheit, Centigrade, and the Kelvin scales. Since the earliest days of medicine, physicians have recognized that the human body can exhibit an abnormal rise in temperature, usually defined as fever, as an obvious symptom of illnesses. In 1868, Wunderlich established that the temperature in a healthy person is constant and that variation of temperature occurs in disease. The Allbutt thermometer was the first practical device to become commercially available. The technology has then improved to provide highly accurate devices, for example, thermal imaging; its use is still growing in medicine.",
+isbn="978-3-030-21886-7",
+doi="10.1007/978-3-030-21886-7\_3",
+url="https://doi.org/10.1007/978-3-030-21886-7_3"
+}
+
+@book{Gonzalez2018,
+  author    = {Rafael C. Gonzalez and Richard E. Woods},
+  title     = {Digital Image Processing},
+  publisher = {Pearson},
+  year      = {2018},
+  edition   = {4th},
+  address   = {New York, NY},
+  isbn      = {9780133356724},
+  note      = {Official book website: http://www.imageprocessingplace.com/DIP-4E/dip4e\_main\_page.htm. Global Edition ISBN: 9781292223049.}
+}
+
+@misc{INPE2006,
+  author    = {{DPI/INPE}},
+  title     = {Introdução ao Processamento de Imagens},
+  year      = {2006},
+  publisher = {{DPI/INPE}},
+  url       = {http://www.dpi.inpe.br/spring/portugues/tutorial/introducao_pro.html},
+  urldate   = {2025-04-20},
+  note      = {Tutorial online sobre processamento de imagens do projeto SPRING.}
+}
+
+@book{Klette2014,
+  author    = {Reinhard Klette},
+  title     = {Concise Computer Vision: An Introduction into Theory and Algorithms},
+  publisher = {Springer London Ltd},
+  year      = {2014},
+  address   = {London},
+  doi       = {10.1007/978-1-4471-6320-6},
+  isbn      = {978-1-4471-6320-6},
+  series    = {Undergraduate Topics in Computer Science},
+  month     = {January},
+  note      = {Publicado em 20 de janeiro de 2014. ISBN da versão impressa (paperback): 978-1-4471-6319-0. 429 páginas.},
+  url       = {https://doi.org/10.1007/978-1-4471-6320-6}
+}
+
+@book{Russell2020,
+author = {Stuart Russell and Peter Norvig},
+title = {Artificial Intelligence: A Modern Approach (4th Edition)},
+year = {2020},
+publisher = {Pearson},
+edition = {4th},
+url = {http://aima.cs.berkeley.edu/},
+researchr = {https://researchr.org/publication/RN2020},
+isbn = {9781292401133},
+}
+
+@article{Wang2021,
+  author    = {Tong Wang and Yi Wu and Lan Shi and Xinhua Hu and Min Chen and Limin Wu},
+  title     = {A structural polymer for highly efficient all-day passive radiative cooling},
+  journal   = {Nature Communications},
+  year      = {2021},
+  volume    = {12},
+  number    = {365},
+  doi       = {10.1038/s41467-020-20646-7},
+  pmcid     = {PMC7809060},
+  pmid      = {33446648},
+  note      = {PMCID: PMC7809060; PMID: 33446648. Article number 365.}
+}
+
+@article{Gioia2024,
+  author    = {Federica Gioia and Alberto Greco and Alejandro Luis Callara and Nicola Vanello and Enzo Pasquale Scilingo and Luca Citi},
+  title     = {{ThermICA: Novel Approach for a Multivariate Analysis of Facial Thermal Responses}},
+  journal   = {IEEE Transactions on Biomedical Engineering},
+  year      = {2024},
+  doi       = {10.1109/TBME.2024.3486628},
+}
+
+@inproceedings{Chu2019,
+  author    = {Chu, Wei-Ta and Liu, Yu-Hui},
+  title     = {{Thermal Facial Landmark Detection by Deep Multi-Task Learning}},
+  booktitle = {{Proceedings of the 2019 IEEE 21st International Workshop on Multimedia Signal Processing (MMSP)}},
+  year      = {2019},
+  publisher = {IEEE},
+  address   = {Kuala Lumpur, Malaysia},
+  month     = sep,
+  isbn      = {978-1-7281-1817-8}
+}
+
+@Article{Bekhit2025,
+AUTHOR = {Bekhit, Rodania and Reimert, Inonge},
+TITLE = {A Complete Pipeline to Extract Temperature from Thermal Images of Pigs},
+JOURNAL = {Sensors},
+VOLUME = {25},
+YEAR = {2025},
+NUMBER = {3},
+ARTICLE-NUMBER = {643},
+URL = {https://www.mdpi.com/1424-8220/25/3/643},
+PubMedID = {39943283},
+ISSN = {1424-8220},
+ABSTRACT = {Using deep learning or artificial intelligence (AI) in research with animals is a new interdisciplinary area of research. In this study, we have explored the potential of thermal imaging and AI in pig research. Thermal cameras play a vital role in obtaining and collecting a large amount of data, and AI has the capabilities of processing and extracting valuable information from these data. The amount of data collected using thermal imaging is huge, and automation techniques are therefore crucial to find a meaningful interpretation of the changes in temperature. In this paper, we present a complete pipeline to extract temperature automatically from a selected Region of Interest (ROI). This system consists of three stages: the first one checks whether the ROI is completely visible to observe the thermal temperature, and then the second stage uses an encoder–decoder structure of a convolution neural network to segment the ROI, if the condition was met at stage one. In the last stage, the maximum temperature is extracted and saved in an external file. The segmentation model showed good performance, with a mean Pixel Class accuracy of 92.3%, and a mean Intersection over Union of 87.1%. The extracted temperature observed by the model entirely matched the manually observed temperature. The system showed reliable results to be used independently without human intervention to determine the temperature in the selected ROI in pigs.},
+DOI = {10.3390/s25030643}
+}
+
+
+@Article{Nowakowski2025,
+AUTHOR = {Nowakowski, Antoni Z. and Kaczmarek, Mariusz},
+TITLE = {Artificial Intelligence in IR Thermal Imaging and Sensing for Medical Applications},
+JOURNAL = {Sensors},
+VOLUME = {25},
+YEAR = {2025},
+NUMBER = {3},
+ARTICLE-NUMBER = {891},
+URL = {https://www.mdpi.com/1424-8220/25/3/891},
+PubMedID = {39943530},
+ISSN = {1424-8220},
+ABSTRACT = {The state of the art in IR thermal imaging methods for applications in medical diagnostics is discussed. A review of advances in IR thermal imaging technology in the years 1960–2024 is presented. Recently used artificial intelligence (AI) methods in the analysis of thermal images are the main interest. IR thermography is discussed in view of novel applications of machine learning methods for improved diagnostic analysis and medical treatment. The AI approach aims to improve image quality by denoising thermal images, using applications of AI super-resolution algorithms, removing artifacts, object detection, face and characteristic features localization, complex matching of diagnostic symptoms, etc.},
+DOI = {10.3390/s25030891}
+}
+
+
+
+% -------------------------------------------------------------------------
+% ------------- METODOLOGIA ---------------
+% -------------------------------------------------------------------------
+
+@article{Benamara2021,
+  author    = {Benamara, Nadir Kamel and Zigh, Ehlem and Stambouli, Tarik Boudghene and Keche, Mokhtar},
+  title     = {Towards a Robust Thermal-Visible Heterogeneous Face Recognition Approach Based on a Cycle Generative Adversarial Network},
+  journal   = {International Journal of Interactive Multimedia and Artificial Intelligence},
+  year      = {2021},
+  volume    = {7},
+  number    = {4},
+  pages     = {132--145},
+  month     = dec,
+  doi       = {10.9781/ijimai.2021.12.003}
+}
+
+@article{Weidlich2021,
+  author    = {Weidlich, Vincent A.},
+  title     = {Thermal Infrared Face Recognition},
+  journal   = {Cureus},
+  year      = {2021},
+  volume    = {13},
+  number    = {3},
+  month     = mar,
+  doi       = {doi:10.7759/cureus.13736}
+}
+
+@manual{Michaelis2023,
+  author        = {Veitch-Michaelis, Josh},
+  title         = {{flirpy Documentation}},
+  year          = {2023},
+  month         = apr,
+  organization  = {Read the Docs},
+  edition       = {latest},
+  url           = {https://flirpy.readthedocs.io/\_/downloads/en/latest/pdf/}
+}
+
+@INPROCEEDINGS{Jerbi2024,
+  author={Jerbi, Olfa and Lee, Sukhan},
+  booktitle={2024 18th International Conference on Ubiquitous Information Management and Communication (IMCOM)}, 
+  title={Thermal Imaging Body Temperature Estimation Independent of Environmental Conditions and Individual Variations}, 
+  year={2024},
+  volume={},
+  number={},
+  pages={1-8},
+  abstract={Body temperature represents one of most informative and frequently measured vital signs. In particular, contactless yet accurate body temperature measurement solutions are necessary for dealing with infectious diseases as well as patients with a low immunity, for which thermal imaging has been the most convenient choice. However, thermal imaging body temperature measurement needs to address the dependency of its accuracy on environmental conditions and individual differences. Although conventional thermal imaging body temperature measurements rely on ROIs that are less susceptible to environmental conditions, they are still limited in offering a medical grade accuracy under environmental variations. In this study, we propose a method for an accurate thermal imaging body temperature measurement independently of environmental conditions as well as individual differences. We achieve higher accuracy with this independence by identifying the correlation between environmental conditions and the temperature distributions on facial ROIs and clustering the correlation patterns according to individual types. For implementation, we selected 3 facial skin ROIs (Eye, Nose and Cheek) such that their distribution is concatenated with the classification results on environmental conditions and individual types to obtain a body temperature. We achieved an RMSE error below the medically required 0.2°C threshold regardless of environmental and individual settings.},
+  keywords={Temperature measurement;Temperature distribution;Correlation;Thermal management;Skin;Immune system;Biomedical imaging;Thermal Imaging;Body Temperature Estimation;Individual Differences;Machine Learning;Environmental Conditions},
+  doi={10.1109/IMCOM60618.2024.10418301},
+  ISSN={},
+  month={Jan},
+}
+
+
+@article{Ioannou2014,
+author = {Ioannou, Stephanos and Gallese, Vittorio and Merla, Arcangelo},
+title = {Thermal infrared imaging in psychophysiology: Potentialities and limits},
+journal = {Psychophysiology},
+volume = {51},
+number = {10},
+pages = {951-963},
+keywords = {Arousal, Autonomic nervous system, Emotions, Psychophysiology, Thermal infrared imaging},
+doi = {https://doi.org/10.1111/psyp.12243},
+url = {https://onlinelibrary.wiley.com/doi/abs/10.1111/psyp.12243},
+eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1111/psyp.12243},
+abstract = {Abstract Functional infrared thermal imaging (fITI) is considered an upcoming, promising methodology in the emotional arena. Driven by sympathetic nerves, observations of affective nature derive from muscular activity subcutaneous blood flow as well as perspiration patterns in specific body parts. A review of 23 experimental procedures that employed fITI for investigations of affective nature is provided, along with the adopted experimental protocol and the thermal changes that took place on selected regions of interest in human and nonhuman subjects. Discussion is provided regarding the selection of an appropriate baseline, the autonomic nature of the thermal print, the experimental setup, methodological issues, limitations, and considerations, as well as future directions.},
+year = {2014}
+}
+
+@misc{Villacastin2024,
+  author        = {Villacast{\'{i}}n, Julio Ceniza},
+  title         = {Thermography and emotions},
+  organization  = {ThermoHuman},
+  year          = {2024},
+  month         = feb,
+  url           = {https://thermohuman.com/2024/02/27/thermography-and-emotions}
+}
+
+@article{Okoli2015,
+  author        = {Chitu Okoli},
+  title         = {{A Guide to Conducting a Standalone Systematic Literature Review}},
+  journal       = {Communications of the Association for Information Systems},
+  year          = {2015},
+  volume        = {37},
+  number        = {1},
+  pages         = {879--922},
+  doi           = {10.17705/1CAIS.03743},
+  url           = {https://aisel.aisnet.org/cais/vol37/iss1/43/}
+}
+
+@InCollection{Dolibog2022,
+author = {P. Dolibog and B. Pietrzyk and K. Kierszniok and K. Pawlicki},
+title = {Comparative Analysis of Human Body Temperatures Measured with Noncontact and Contact Thermometers},
+booktitle = {Healthcare (Basel), vol. 10, no 2},
+pages = {331},
+publisher = {Publishing Press},
+year = {2022}, 
+doi = {https://www.mdpi.com/2227-9032/10/2/331}
+}
+
+@article{Ring2010,
+author = {E. F. J. Ring and H. Mcevoy and A. Jung and J. Zuber and G. Machin},
+title = {{New standards for devices used for the measurement of human body temperature}},
+journal = {Journal of Medical Engineering \& Technology},
+volume = {34},
+number = {4},
+pages = {249--253},
+year = {2010},
+month = {4},
+publisher = {Taylor \& Francis},
+doi = {https://doi.org/10.3109/03091901003663836},
+}
+
+@article{Castro2023,
+author = {Onassis Boeri de Castro and et al},
+title = {{Características epidemiológicas de pacientes com Sepse e choque séptico}},
+journal = {Brazilian Journal of Health Review},
+year = {2023},
+pages = {4881-4893},
+volume = {6},
+number ={2},
+}
+@inproceedings{Sena2022,
+author = {Cristiano Pereira Sena and et al},
+title = {{Fatores De Risco De Sepse Nas Unidades De Terapia Intensiva}},
+booktitle = {Congresso Nacional de Humanização na Saúde},
+year = {2022},
+doi = {https://doi.org/10.1590/1414-462X201600040091},
+}
+
+@article{Ingh2022,
+author = {Manpreet Ingh and Urvashi Tandon and Amit Mittal},
+title = {{Modeling users’ and practitioners’ intention for continued usage of the Internet of Medical Devices (IoMD): an empirical investigation}},
+journal = {Information Discovery and Delivery},
+year = {2022},
+volume = {51},
+number = {3},
+pages = {306–321},
+}
+
+@article{Ferreira2022,
+author = {Cátia Alexandra Granja Ferreira and Catarina de Oliveira Pereira and Dulce Helena Saraiva Santos and João Daniel Carvalho Borges and Luís Manuel Cunha Batalha},
+title = {{Medição da temperatura corporal em crianças: Estudo comparativo entre o método de medição axilar e timpânico}},
+journal = {{Revista de Enfermagem Referência}},
+year = {2022},
+volume = {VI},
+number = {1},
+pages = {1-8},
+edition = {e21008},
+}
+
+
+
+
+% -------------------------------------------------------------------------
+% ------------- REVISAO - SLR ---------------
+% -------------------------------------------------------------------------
+
+@book{Wohlin2012ESE,
+  author    = {Claes Wohlin and Per Runeson and Martin H{\"o}st and Magnus C. Ohlsson and Bj{\"o}rn Regnell and Anders Wesslén},
+  title     = {Experimentation in Software Engineering},
+  publisher = {Springer},
+  year      = {2012},
+  doi       = {10.1007/978-3-642-29044-2},
+  isbn      = {978-3-642-29044-2},
+  pages     = {I-XXIV, 1-236}
+}
+
+
+% -------------------------------------------------------------------------
+% ------------- Trabalhos Relacionados ---------------
+% -------------------------------------------------------------------------
+
+@article{Estudo_01,
+author = {Fei Liu and Jie Yao and Chunyan Liu and Songtao Shou},
+title = {Construction and validation of machine learning models forsepsis prediction in patients with acute pancreatitis},
+year = {2023},
+issue_date = {Sep. 2023},
+journal = {BMC Surgery},
+url = {https://doi.org/10.1186/s12893-023-02151-y},
+doi = {doi:10.1186/s12893-023-02151-y}
+}
+
+@INPROCEEDINGS{Estudo_02,
+  author={Hsieh, Cheng-Tiao},
+  booktitle={2021 16th International Microsystems, Packaging, Assembly and Circuits Technology Conference (IMPACT)}, 
+  title={Development of a Low Cost and Raspberry-based Thermal Imaging System for Monitoring Human Body Temperature}, 
+  year={2021},
+  volume={},
+  number={},
+  pages={248-251},
+  keywords={COVID-19;Temperature measurement;Temperature sensors;Costs;Image resolution;Forehead;Imaging},
+  doi={10.1109/IMPACT53160.2021.9696451}
+}
+
+@INPROCEEDINGS{Estudo_03,
+  author={Wang, Enliang and Yu, Yuting},
+  booktitle={2021 International Conference on Electronic Information Engineering and Computer Science (EIECS)}, 
+  title={Face based Identification and Non - Contact Temperature Measurement System Design}, 
+  year={2021},
+  volume={},
+  number={},
+  pages={784-787},
+  keywords={Temperature measurement;Graphics;Semiconductor device measurement;Microcontrollers;Hospitals;Face recognition;Microcomputers;Face recognition;Non-contact temperature measurement;K210;Image acquisition},
+  doi={10.1109/EIECS53707.2021.9587955}
+}
+
+@article{Estudo_04,
+author = {Tianyun Gao and Zhiqiang Nong and Yuzhen Luo and Manqiu Mo and Zhaoyan Chen and Zhenhua Yang and Ling Pan},
+title = {Machine learning-based prediction of in-hospital mortality for critically ill patients with sepsis-associated acute kidney injury},
+journal = {Renal Failure},
+volume = {46},
+number = {1},
+pages = {2316267},
+year = {2024},
+publisher = {Taylor \& Francis},
+doi = {10.1080/0886022X.2024.2316267},
+note ={PMID: 38369749},
+URL = {https://doi.org/10.1080/0886022X.2024.2316267},
+eprint = { https://doi.org/10.1080/0886022X.2024.2316267},
+abstract = { This study aims to develop and validate a prediction model in-hospital mortality in critically ill patients with sepsis-associated acute kidney injury (SA-AKI) based on machine learning algorithms. Patients who met the criteria for inclusion were identified in the Medical Information Mart for Intensive Care-IV (MIMIC-IV) database and divided according to the validation (n\&nbsp;=\&nbsp;2440) and development (n\&nbsp;=\&nbsp;9756, 80\%) queues. Ensemble stepwise feature selection method was used to screen for effective features. The prediction models of short-term mortality were developed by seven machine learning algorithms. Ten-fold cross-validation was used to verify the performance of the algorithm in the development queue. The area under the receiver operating characteristic curve (ROC-AUC) was used to evaluate the differentiation accuracy and performance of the prediction model in the validation queue. The best-performing model was interpreted by Shapley additive explanations (SHAP). A total of 12,196 patients were enrolled in this study. Eleven variables were finally chosen to develop the prediction model. The AUC of the random forest (RF) model was the highest value both in the Ten-fold cross-validation and evaluation (AUC: 0.798, 95\% CI: 0.774–0.821). According to the SHAP plots, old age, low Glasgow Coma Scale (GCS) score, high AKI stage, reduced urine output, high Simplified Acute Physiology Score (SAPS II), high respiratory rate, low temperature, low absolute lymphocyte count, high creatinine level, dysnatremia, and low body mass index (BMI) increased the risk of poor prognosis. The RF model developed in this study is a good predictor of in-hospital mortality for patients with SA-AKI in the intensive care unit (ICU), which may have potential applications in mortality prediction. }
+}
+
+@article{Estudo_05,
+    doi = {10.1371/journal.pone.0292203},
+    author = {Grossmann, Kirsten AND Risch, Martin AND Markovic, Andjela AND Aeschbacher, Stefanie AND Weideli, Ornella C. AND Velez, Laura AND Kovac, Marc AND Pereira, Fiona AND Wohlwend, Nadia AND Risch, Corina AND Hillmann, Dorothea AND Lung, Thomas AND Renz, Harald AND Twerenbold, Raphael AND Rothenbühler, Martina AND Leibovitz, Daniel AND Kovacevic, Vladimir AND Klaver, Paul AND Brakenhoff, Timo B. AND Franks, Billy AND Mitratza, Marianna AND Downward, George S. AND Dowling, Ariel AND Montes, Santiago AND Veen, Duco AND Grobbee, Diederick E. AND Cronin, Maureen AND Conen, David AND Goodale, Brianna M. AND Risch, Lorenz AND on behalf of the COVID-19 remote early detection (COVID-RED) consortium},
+    journal = {PLOS ONE},
+    publisher = {Public Library of Science},
+    title = {Sex-specific differences in physiological parameters related to SARS-CoV-2 infections among a national cohort (COVI-GAPP study)},
+    year = {2024},
+    month = {03},
+    volume = {19},
+    url = {https://doi.org/10.1371/journal.pone.0292203},
+    pages = {1-17},
+    abstract = {Considering sex as a biological variable in modern digital health solutions, we investigated sex-specific differences in the trajectory of four physiological parameters across a COVID-19 infection. A wearable medical device measured breathing rate, heart rate, heart rate variability, and wrist skin temperature in 1163 participants (mean age = 44.1 years, standard deviation [SD] = 5.6; 667 [57%] females). Participants reported daily symptoms and confounders in a complementary app. A machine learning algorithm retrospectively ingested daily biophysical parameters to detect COVID-19 infections. COVID-19 serology samples were collected from all participants at baseline and follow-up. We analysed potential sex-specific differences in physiology and antibody titres using multilevel modelling and t-tests. Over 1.5 million hours of physiological data were recorded. During the symptomatic period of infection, men demonstrated larger increases in skin temperature, breathing rate, and heart rate as well as larger decreases in heart rate variability than women. The COVID-19 infection detection algorithm performed similarly well for men and women. Our study belongs to the first research to provide evidence for differential physiological responses to COVID-19 between females and males, highlighting the potential of wearable technology to inform future precision medicine approaches.},
+    number = {3},
+}
+
+@manual{COVIGAPP2020,
+  author       = {Risch, Lorenz and Conen, David and Risch, Martin and Aeschbacher, Stefanie and Grossmann, Kirsten and Cronin, Maureen},
+  title        = {{Defining the role of a fertility bracelet for early recognition and monitoring of COVID-19 in Liechtenstein: an observational study (COVI-GAPP)}},
+  organization = {{labormedizinisches zentrum Dr. Risch}},
+  year         = {2020},
+  month        = apr,
+  address      = {Vaduz, Liechtenstein},
+  note         = {Protocol Version 1.2. Clinical Study Protocol. Intended registry: ISRCTN.},
+  url          = {https://www.isrctn.com/editorial/retrieveFile/fcf82e68-4862-41c3-970f-0ff77b41290d/38144}
+}
+
+@INPROCEEDINGS{Estudo_06,
+  author={V. Muthu and Kavitha S.},
+  booktitle={2021 Fifth International Conference on I-SMAC (IoT in Social, Mobile, Analytics and Cloud) (I-SMAC)}, 
+  title={Survey on Automatic Temperature and Face Detection using AI}, 
+  year={2021},
+  volume={},
+  number={},
+  pages={559-567},
+  abstract={The artificial intelligence is a computer expertise which thinks like human being and it does not need human intellect. The artificial intelligence could be categorized as: (i)Reactive machine, (ii)Machines with limited memory, (iii)Machines with a theory of mind, and (iv)Machines with self-awareness. The different applications of artificial intelligence are speech recognition, robot process automation, decision management, etc. The input given is in the form of images, videos, and sound data. The image, video is taken using high-resolution cameras like conventional thermal camera, visible IP camera, and AI-enabled thermal camera. With the advent of artificial intelligence variety of automated detection like thermal temperature detection, infrared temperature detection, mask recognition detection, computer vision was introduced and used. This survey presents a assessment of artificial intelligence methods used in the detection and recognition of face and also for testing fever. A series of algorithms like independent component analysis, local binary pattern histogram, ADA boost cascade, squirrel search, HOG, face detection and recognition in the literature. This paper highlights the automatic detection of body temperature, facial temperature and room temperature using artificial intelligence as an effective endurance. Persons with fever in public places could be identified and proper action could be taken in advance. This study is expected to provide researchers in AI a general idea of the present the current state of AI applications and inspire them in exploiting In the fight against illnesses like COVID-19, AI has a lot of promise.},
+  keywords={Face recognition;Robot vision systems;Speech recognition;Independent component analysis;Cameras;Face detection;IP networks;fever screening;face detection;face recognition;thermal camera;artificial intelligence},
+  doi={10.1109/I-SMAC52330.2021.9640662},
+  ISSN={2768-0673},
+  month={Nov},
+}
+
+
+@article{Estudo_08,
+author = {Ivan Liu and Fangyuan Liu and Qi Zhong and Fei Ma and Shiguang Ni},
+title = {Your blush gives you away: detecting hidden mental states with remote photoplethysmography and thermal imaging},
+year = {2024},
+issue_date = {March 2024},
+journal = {PeerJ. Computer science},
+url = {https://pubmed.ncbi.nlm.nih.gov/38660202/},
+doi = {10.7717/peerj-cs.1912}
+}
+
+%======================
+% SEGMENTACAO SEMANTICA - ARQUITETURAS
+%======================
+
+@inproceedings{Ronneberger2015,
+  author    = {Olaf Ronneberger and Philipp Fischer and Thomas Brox},
+  title     = {U-Net: Convolutional Networks for Biomedical Image Segmentation},
+  booktitle = {Medical Image Computing and Computer-Assisted Intervention (MICCAI 2015)},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {9351},
+  pages     = {234--241},
+  year      = {2015},
+  publisher = {Springer},
+  doi       = {10.1007/978-3-319-24574-4_28}
+}
+
+@article{Zhou2020,
+  author  = {Zongwei Zhou and Md Mahfuzur Rahman Siddiquee and Nima Tajbakhsh and Jianming Liang},
+  title   = {{UNet++}: Redesigning Skip Connections to Exploit Multiscale Features in Image Segmentation},
+  journal = {IEEE Transactions on Medical Imaging},
+  volume  = {39},
+  number  = {6},
+  pages   = {1856--1867},
+  year    = {2020},
+  doi     = {10.1109/TMI.2019.2959609}
+}
+
+@misc{Chen2021,
+  author       = {Jieneng Chen and Yongyi Lu and Qihang Yu and Xiangde Luo and Ehsan Adeli and Yan Wang and Le Lu and Alan L. Yuille and Yuyin Zhou},
+  title        = {{TransUNet}: Transformers Make Strong Encoders for Medical Image Segmentation},
+  year         = {2021},
+  eprint       = {2102.04306},
+  archivePrefix= {arXiv},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2102.04306}
+}
+
+@inproceedings{Liu2021Swin,
+  author    = {Ze Liu and Yutong Lin and Yue Cao and Han Hu and Yixuan Wei and Zheng Zhang and Stephen Lin and Baining Guo},
+  title     = {Swin Transformer: Hierarchical Vision Transformer using Shifted Windows},
+  booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
+  pages     = {10012--10022},
+  year      = {2021},
+  doi       = {10.1109/ICCV48922.2021.00986}
+}
+
+@misc{Cao2022,
+  author       = {Hu Cao and Yueyue Wang and Joy Chen and Dongsheng Jiang and Xiaopeng Zhang and Qi Tian and Manning Wang},
+  title        = {{Swin-Unet}: Unet-like Pure Transformer for Medical Image Segmentation},
+  year         = {2022},
+  note      = {Presented at the ECCV 2022 Workshop on Medical Computer Vision (MCV)},
+  eprint       = {2105.05537},
+  archivePrefix= {arXiv},
+  primaryClass = {eess.IV},
+  url          = {https://arxiv.org/abs/2105.05537}
+}
+
+@article{Liu2021Materials,
+  author  = {Pengfei Liu and Yueqi Song and Ming Chai and Zhiyuan Han and Yu Zhang},
+  title   = {{Swin--UNet++}: A Nested Swin Transformer Architecture for Location Identification and Morphology Segmentation of Dimples on 2.25Cr1Mo0.25V Fractured Surface},
+  journal = {Materials},
+  volume  = {14},
+  number  = {24},
+  pages   = {7504},
+  year    = {2021},
+  doi     = {10.3390/ma14247504}
+}
+
+@misc{Oktay2018,
+  author       = {Ozan Oktay and Jo Schlemper and Loic Le Folgoc and Matthew Lee and Mattias Heinrich and Kazunari Misawa and Kensaku Mori and Steven McDonagh and Nils Y. Hammerla and Bernhard Kainz and Ben Glocker and Daniel Rueckert},
+  title        = {Attention U-Net: Learning Where to Look for the Pancreas},
+  year         = {2018},
+  eprint       = {1804.03999},
+  archivePrefix= {arXiv},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/1804.03999}
+}
+
+@inproceedings{Vaswani2017,
+  author    = {Ashish Vaswani and Noam Shazeer and Niki Parmar and Jakob Uszkoreit and Llion Jones and Aidan N. Gomez and Lukasz Kaiser and Illia Polosukhin},
+  title     = {Attention Is All You Need},
+  booktitle = {Advances in Neural Information Processing Systems 30 (NeurIPS 2017)},
+  year      = {2017}
+}
+
+@inproceedings{Dosovitskiy2021,
+  author    = {Alexey Dosovitskiy and Lucas Beyer and Alexander Kolesnikov and Dirk Weissenborn and Xiaohua Zhai and Thomas Unterthiner and Mostafa Dehghani and Matthias Minderer and Georg Heigold and Sylvain Gelly and Jakob Uszkoreit and Neil Houlsby},
+  title     = {An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2021}
+}
+
+@inproceedings{Long2015,
+  author    = {Jonathan Long and Evan Shelhamer and Trevor Darrell},
+  title     = {Fully Convolutional Networks for Semantic Segmentation},
+  booktitle = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+  pages     = {3431--3440},
+  year      = {2015},
+  doi       = {10.1109/CVPR.2015.7298965}
+}
+
+@inproceedings{He2016,
+  author    = {Kaiming He and Xiangyu Zhang and Shaoqing Ren and Jian Sun},
+  title     = {Deep Residual Learning for Image Recognition},
+  booktitle = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+  pages     = {770--778},
+  year      = {2016},
+  doi       = {10.1109/CVPR.2016.90}
+}
+
+@inproceedings{Deng2009,
+  author    = {Jia Deng and Wei Dong and Richard Socher and Li-Jia Li and Kai Li and Li Fei-Fei},
+  title     = {{ImageNet}: A Large-Scale Hierarchical Image Database},
+  booktitle = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+  pages     = {248--255},
+  year      = {2009},
+  doi       = {10.1109/CVPR.2009.5206848}
+}
+
+@article{Siddique2021,
+  author  = {Nahian Siddique and Paheding Sidike and Colin Elkin and Vijay Devabhaktuni},
+  title   = {{U-Net} and Its Variants for Medical Image Segmentation: A Review of Theory and Applications},
+  journal = {IEEE Access},
+  volume  = {9},
+  pages   = {82031--82057},
+  year    = {2021},
+  doi     = {10.1109/ACCESS.2021.3086020}
+}
+
+%======================
+% FUNCOES DE PERDA
+%======================
+
+@inproceedings{Milletari2016,
+  author    = {Fausto Milletari and Nassir Navab and Seyed-Ahmad Ahmadi},
+  title     = {{V-Net}: Fully Convolutional Neural Networks for Volumetric Medical Image Segmentation},
+  booktitle = {Fourth International Conference on 3D Vision (3DV)},
+  pages     = {565--571},
+  year      = {2016},
+  doi       = {10.1109/3DV.2016.79}
+}
+
+@inproceedings{Sudre2017,
+  author    = {Carole H. Sudre and Wenqi Li and Tom Vercauteren and Sebastien Ourselin and M. Jorge Cardoso},
+  title     = {Generalised Dice Overlap as a Deep Learning Loss Function for Highly Unbalanced Segmentations},
+  booktitle = {Deep Learning in Medical Image Analysis and Multimodal Learning for Clinical Decision Support (DLMIA 2017, MICCAI Workshop)},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {10553},
+  pages     = {240--248},
+  year      = {2017},
+  publisher = {Springer},
+  doi       = {10.1007/978-3-319-67558-9_28}
+}
+
+@inproceedings{Lin2017,
+  author    = {Tsung-Yi Lin and Priya Goyal and Ross Girshick and Kaiming He and Piotr Doll{\'a}r},
+  title     = {Focal Loss for Dense Object Detection},
+  booktitle = {Proceedings of the IEEE International Conference on Computer Vision (ICCV)},
+  pages     = {2980--2988},
+  year      = {2017},
+  doi       = {10.1109/ICCV.2017.324}
+}
+
+@inproceedings{Zhao2019,
+  author    = {Shuai Zhao and Yang Wang and Zheng Yang and Deng Cai},
+  title     = {Region Mutual Information Loss for Semantic Segmentation},
+  booktitle = {Advances in Neural Information Processing Systems 32 (NeurIPS 2019)},
+  year      = {2019}
+}
+
+@inproceedings{Jadon2020,
+  author    = {Shruti Jadon},
+  title     = {A Survey of Loss Functions for Semantic Segmentation},
+  booktitle = {IEEE Conference on Computational Intelligence in Bioinformatics and Computational Biology (CIBCB)},
+  pages     = {1--7},
+  year      = {2020},
+  doi       = {10.1109/CIBCB48159.2020.9277638}
+}
+
+%======================
+% METRICAS DE AVALIACAO
+%======================
+
+@article{MaierHein2024,
+  author  = {Lena Maier-Hein and Annika Reinke and Patrick Godau and Minu D. Tizabi and Florian Buettner and Evangelia Christodoulou and Ben Glocker and Fabian Isensee and Jens Kleesiek and Michal Kozubek and Mauricio Reyes and Michael A. Riegler and Manuel Wiesenfarth and A. Emre Kavur and Carole H. Sudre and Michael Baumgartner and Matthias Eisenmann and Doreen Heckmann-N{\"o}tzel and Tim R{\"a}dsch and Laura Acion and Michela Antonelli and Tal Arbel and Spyridon Bakas and Arriel Benis and Matthew B. Blaschko and M. Jorge Cardoso and Veronika Cheplygina and Beth A. Cimini and Gary S. Collins and Keyvan Farahani and Luciana Ferrer and Adrian Galdran and Bram van Ginneken and Robert Haase and Daniel A. Hashimoto and Michael M. Hoffman and Merel Huisman and Pierre Jannin and Charles E. Kahn and Dagmar Kainmueller and Bernhard Kainz and Alexandros Karargyris and Alan Karthikesalingam and Florian Kofler and Annette Kopp-Schneider and Anna Kreshuk and Tahsin Kurc and Bennett A. Landman and Geert Litjens and Amin Madani and Klaus Maier-Hein and Anne L. Martel and Peter Mattson and Erik Meijering and Bjoern Menze and Karel G. M. Moons and Henning M{\"u}ller and Brennan Nichyporuk and Felix Nickel and Jens Petersen and Nasir Rajpoot and Nicola Rieke and Julio Saez-Rodriguez and Clara I. S{\'a}nchez and Shravya Shetty and Maarten van Smeden and Ronald M. Summers and Abdel A. Taha and Aleksei Tiulpin and Sotirios A. Tsaftaris and Ben Van Calster and Ga{\"e}l Varoquaux and Paul F. J{\"a}ger},
+  title   = {Metrics Reloaded: Recommendations for Image Analysis Validation},
+  journal = {Nature Methods},
+  volume  = {21},
+  number  = {2},
+  pages   = {195--212},
+  year    = {2024},
+  doi     = {10.1038/s41592-023-02151-z}
+}
+
+@article{Taha2015,
+  author  = {Abdel Aziz Taha and Allan Hanbury},
+  title   = {Metrics for Evaluating {3D} Medical Image Segmentation: Analysis, Selection, and Tool},
+  journal = {BMC Medical Imaging},
+  volume  = {15},
+  pages   = {29},
+  year    = {2015},
+  doi     = {10.1186/s12880-015-0068-x}
+}
+
+%======================
+% DOMINIO TERMICO E BENCHMARKING
+%======================
+
+@article{Ashrafi2022,
+  author  = {Roshanak Ashrafi and Mona Azarbayjani and Hamed Tabkhi},
+  title   = {{Charlotte-ThermalFace}: A Fully Annotated Thermal Infrared Face Dataset with Various Environmental Conditions and Distances},
+  journal = {Infrared Physics \& Technology},
+  volume  = {124},
+  pages   = {104209},
+  year    = {2022},
+  doi     = {10.1016/j.infrared.2022.104209}
+}
+
+@inproceedings{Joshi2022,
+  author    = {Jitesh Joshi and Nadia Bianchi-Berthouze and Youngjun Cho},
+  title     = {Self-adversarial Multi-scale Contrastive Learning for Semantic Segmentation of Thermal Facial Images},
+  booktitle = {33rd British Machine Vision Conference (BMVC 2022)},
+  year      = {2022},
+  note      = {arXiv:2209.10700},
+  url       = {https://arxiv.org/abs/2209.10700}
+}
+
+@inproceedings{Isensee2024,
+  author    = {Fabian Isensee and Tassilo Wald and Constantin Ulrich and Michael Baumgartner and Saikat Roy and Klaus Maier-Hein and Paul F. Jaeger},
+  title     = {{nnU-Net} Revisited: A Call for Rigorous Validation in {3D} Medical Image Segmentation},
+  booktitle = {Medical Image Computing and Computer-Assisted Intervention (MICCAI 2024)},
+  pages     = {488--498},
+  year      = {2024},
+  note      = {arXiv:2404.09556},
+  doi       = {10.1007/978-3-031-72111-3_46}
+}
+
+@article{Muller2021,
+  author  = {S. M{\"u}ller and J. Ehlen and B. Valeske},
+  title   = {Convolutional Neural Networks for Semantic Segmentation as a Tool for Multiclass Face Analysis in Thermal Infrared},
+  journal = {Journal of Nondestructive Evaluation},
+  volume  = {40},
+  number  = {1},
+  pages   = {9},
+  year    = {2021},
+  doi     = {10.1007/s10921-020-00740-y}
+}
+
+@inproceedings{Kopaczka2018,
+  author    = {M. Kopaczka and R. Kolk and D. Merhof},
+  title     = {A Fully Annotated Thermal Face Database and its Application for Thermal Facial Expression Recognition},
+  booktitle = {IEEE International Instrumentation and Measurement Technology Conference (I2MTC)},
+  year      = {2018},
+  doi       = {10.1109/I2MTC.2018.8409768}
+}
+
+@misc{Kutuk2022,
+  author       = {Z{\"u}lfiye K{\"u}t{\"u}k and G{\"o}rkem Algan},
+  title        = {Semantic Segmentation for Thermal Images: A Comparative Survey},
+  year         = {2022},
+  note      = {Presented at the CVPR 2022 Workshop (PBVS)},
+  eprint       = {2205.13278},
+  archivePrefix= {arXiv},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2205.13278}
+}
+
+@article{Panetta2021,
+  author  = {K. Panetta and K. M. Shreyas Kamath and S. Rajeev and S. S. Agaian},
+  title   = {{FTNet}: Feature Transverse Network for Thermal Image Semantic Segmentation},
+  journal = {IEEE Access},
+  volume  = {9},
+  pages   = {145212--145227},
+  year    = {2021},
+  doi     = {10.1109/ACCESS.2021.3123066}
+}
+
+@article{Stanic2025,
+  author  = {V. Stani{\'c} and G. Ger{\v{s}}ak},
+  title   = {Facial Thermal Imaging: A Systematic Review with Guidelines and Measurement Uncertainty Estimation},
+  journal = {Measurement},
+  volume  = {242},
+  pages   = {115879},
+  year    = {2025},
+  doi     = {10.1016/j.measurement.2024.115879}
+}
+
+
+@article{RingAmmer2012,
+  author  = {E. F. J. Ring and K. Ammer},
+  title   = {Infrared thermal imaging in medicine},
+  journal = {Physiological Measurement},
+  volume  = {33},
+  number  = {3},
+  pages   = {R33--R46},
+  year    = {2012},
+  doi     = {10.1088/0967-3334/33/3/R33}
+}
+
+@article{Steketee1973,
+  author  = {J. Steketee},
+  title   = {Spectral emissivity of skin and pericardium},
+  journal = {Physics in Medicine and Biology},
+  volume  = {18},
+  number  = {5},
+  pages   = {686--694},
+  year    = {1973},
+  doi     = {10.1088/0031-9155/18/5/307}
+}
+
+@article{Isensee2021,
+  author  = {Fabian Isensee and Paul F. Jaeger and Simon A. A. Kohl and Jens Petersen and Klaus H. Maier-Hein},
+  title   = {{nnU-Net}: a self-configuring method for deep learning-based biomedical image segmentation},
+  journal = {Nature Methods},
+  volume  = {18},
+  pages   = {203--211},
+  year    = {2021},
+  doi     = {10.1038/s41592-020-01008-z}
+}
+
+@article{Holm1979,
+  author  = {Sture Holm},
+  title   = {A simple sequentially rejective multiple test procedure},
+  journal = {Scandinavian Journal of Statistics},
+  volume  = {6},
+  number  = {2},
+  pages   = {65--70},
+  year    = {1979}
+}
+
+@inproceedings{Loshchilov2019,
+  author    = {Ilya Loshchilov and Frank Hutter},
+  title     = {Decoupled Weight Decay Regularization},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2019},
+}
+
+@techreport{IEC80601259,
+  author      = {{International Electrotechnical Commission}},
+  title       = {IEC 80601-2-59: Medical electrical equipment --- Part 2-59: Particular
+                 requirements for the basic safety and essential performance of screening
+                 thermographs for human febrile temperature screening},
+  institution = {International Electrotechnical Commission},
+  address     = {Geneva},
+  year        = {2017},
+  type        = {Norma tecnica}
+}
